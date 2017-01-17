@@ -27,13 +27,6 @@ require('./routes')(app);
 // This file has been called directly with 
 // `node index.js`. Start the server!
 
-//app.listen(8080);
-//console.log('Your application is running on http://localhost:8080');
-
-
-// get the app environment from Cloud Foundry
-var appEnv = cfenv.getAppEnv();
-
 // start server on the specified port and binding host
 app.listen(process.env.PORT||3000);
   // print a message when the server starts listening
