@@ -35,7 +35,5 @@ require('./routes')(app);
 var appEnv = cfenv.getAppEnv();
 
 // start server on the specified port and binding host
-app.listen(process.env.PORT || appEnv.port, '0.0.0.0', function() {
+app.listen(process.env.PORT || appEnv.port, '0.0.0.0');
   // print a message when the server starts listening
-  console.log("server starting on " + appEnv.url);
-});
