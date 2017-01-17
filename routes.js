@@ -17,7 +17,7 @@ module.exports = function(app){
 		photos.find({}, function(err, all_photos){
 
 			// Find the current user
-			users.find({ip: req.ip}, function(err, u){
+			users.find({ip: req.headers['x-forwarded-for']}, function(err, u){
 
 				var voted_on = [];
 
@@ -69,7 +69,7 @@ module.exports = function(app){
 		// Register the user in the database by ip address
 
 		users.insert({
-			ip: req.ip,
+			ip: req.headers['x-forwarded-for'],
 			votes: []
 		}, function(){
 			// Continue with the other routes
@@ -98,7 +98,7 @@ module.exports = function(app){
 
 				photos.update(found[0], {$inc : what[req.path]});
 
-				users.update({ip: req.ip}, { $addToSet: { votes: found[0]._id}}, function(){
+				users.update({ip: req.headers['x-forwarded-for']}, { $addToSet: { votes: found[0]._id}}, function(){
 					res.redirect('../');
 				});
 
